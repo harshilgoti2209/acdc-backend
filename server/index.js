@@ -155,7 +155,7 @@ app.post("/signup", (req, res) => {
         email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-      });
+      }); 
       res.status(200).send("SUCCESS");
     } else {
       res.status(200).send("email already exists");
@@ -226,7 +226,7 @@ app.post("/createiot", (req, res) => {
       code,
       user,
       slevel: 1,
-      slimit: 1,
+      slimit: 10000,
       sstatus: 1,
       current: 0,
       limit: 0,
