@@ -91,12 +91,13 @@ server.on("error", (error) => {
   console.log(error);
 });
 
-// ping IOTs
-const MINUTE = 1000 * 30;
 server.listen(PORT);
-setInterval(() => {
-  pingIot(sockets);
-}, MINUTE);
+// // ping IOTs
+// const MINUTE = 1000 * 30;
+
+// setInterval(() => {
+//   pingIot(sockets);
+// }, MINUTE);
 
 const app = require("./express");
 
@@ -117,19 +118,21 @@ app.post("/", (req, res) => {
   const socket = sockets.get(name);
   if (socket) {
     if (code === "SC") {
-      socket.write(`(${name}${subName}SC${req.body.limit})`);
       saveSystemLog({
         name: "server",
         log: `(${name}${subName}SC${req.body.limit})`,
         time: unixTime(),
       });
+      socket.write(`(${name}${subName}SC${req.body.limit})`);
+     
     } else if (code === "SW") {
-      socket.write(`(${name}${subName}SW${req.body.status})`);
       saveSystemLog({
         name: "server",
         log: `(${name}${subName}SW${req.body.status})`,
         time: unixTime(),
       });
+      socket.write(`(${name}${subName}SW${req.body.status})`);
+      
     }
   }
   res.status(200).send("SUCCESS");
